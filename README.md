@@ -1,68 +1,52 @@
-# Blog API
+# Blog API (Beginner-friendly)
 
-A simple Node.js project for building a Blog REST API. This README is beginner-friendly and guides you from setup to first run.
+This project is a simple Express + MongoDB API for a blog with user auth, posts and comments.
 
-## Description
+Quick start (Windows PowerShell):
 
-This repository is a starting point for a Blog API. It includes the basic Node.js project setup (`package.json`) and is ready for you to add routes, controllers, and database code. Use it to learn backend basics or as a foundation for a complete blog platform.
-
-## Features
-
-- Clean Node.js project scaffold 
-- Ready for REST API routes 
-- Works on Windows, macOS, and Linux
-
-Planned (you can add these as you go):
-- CRUD for blog posts (Create, Read, Update, Delete)
-- User authentication (signup/login)
-- Comments and likes
-- Input validation and error handling
-
-## Installation & Usage
-
-Prerequisites:
-- Node.js (LTS recommended) and npm installed
-- Git installed (optional but recommended)
-
-1) Clone the repository
+1. Copy `.env.example` to `.env` and fill values (add your MongoDB URI and a JWT secret):
 
 ```powershell
-git clone https://github.com/Ikechukwu-Okwuchukwu-Amaechina/blog-api.git
-cd blog-api
+cp .env.example .env
+# then edit .env in your editor and add MONGODB_URI and JWT_SECRET
 ```
 
-2) Install dependencies
+2. Install dependencies:
 
 ```powershell
 npm install
 ```
 
-3) Run the app
-
-Right now this project is a scaffold. You have two simple options to run code:
-
-- If you already have an `index.js`, you can run:
+3. Run in development (uses `nodemon`):
 
 ```powershell
-node index.js
+npm run dev
 ```
 
+API endpoints (basic):
 
+- POST /api/auth/signup  { name, email, password }
+- POST /api/auth/login   { email, password } -> returns token
+- GET  /api/posts
+- POST /api/posts        (authenticated, Bearer token)
+- POST /api/posts/:postId/comments  (authenticated)
 
-```powershell
-npm start
-```
+Notes for beginners:
 
-Tip: If you don’t have an `index.js` yet, create one and start with something small (for example, a basic HTTP server) and iterate from there.
+- After login you receive a JWT. Send it in the `Authorization` header as `Bearer <token>`.
+- Passwords are hashed with bcrypt before saving.
+- Use try/catch in async controllers to return friendly errors (already applied in controllers).
+- If you don't provide `MONGODB_URI`, the server will start but won't connect to a database. Add your DB URI to `.env` when ready.
 
-## Technologies Used
+Files of interest:
 
-- Node.js
-- npm (Node Package Manager)
-- JavaScript (CommonJS modules)
+- `app.js` - Express app and routes wiring
+- `server.js` - starts the server and connects to MongoDB
+- `models/` - Mongoose models: `User`, `Post`
+- `controllers/` - `authController`, `postController`
+- `routes/` - route files: `auth.js`, `posts.js`
+- `middleware/auth.js` - protects routes using JWT
 
-## Author
-
-Ikechukwu Okwuchukwu Amaechina
+Happy hacking — add validation, tests, and more routes as you learn.
 
 
