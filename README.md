@@ -23,29 +23,44 @@ npm install
 npm run dev
 ```
 
-API endpoints (basic):
+API endpoints (completed):
 
+Auth:
 - POST /api/auth/signup  { name, email, password }
 - POST /api/auth/login   { email, password } -> returns token
-- GET  /api/posts
-- POST /api/posts        (authenticated, Bearer token)
-- POST /api/posts/:postId/comments  (authenticated)
+
+Posts:
+- GET  /api/posts                      -> list posts (supports ?page=&limit=&author=&tag=&from=&to=)
+- GET  /api/posts/:id                  -> get single post (public)
+- POST /api/posts                      -> create post (auth required)
+- PUT  /api/posts/:id                  -> update post (owner or admin)
+- DELETE /api/posts/:id                -> delete post (owner or admin)
+
+Comments:
+- GET  /api/posts/:postId/comments     -> list comments for a post (public)
+- POST /api/posts/:postId/comments     -> add comment (auth required)
+- DELETE /api/posts/:postId/comments/:commentId -> delete comment (owner or admin)
+
+Security & middleware added:
+- Helmet for secure HTTP headers
+- Rate limiting to reduce abuse
+- Input sanitization against NoSQL injection and XSS
+- JWT-based protected routes (send token as `Authorization: Bearer <token>`)
 
 Notes for beginners:
-
 - After login you receive a JWT. Send it in the `Authorization` header as `Bearer <token>`.
 - Passwords are hashed with bcrypt before saving.
-- Use try/catch in async controllers to return friendly errors (already applied in controllers).
-- If you don't provide `MONGODB_URI`, the server will start but won't connect to a database. Add your DB URI to `.env` when ready.
+- If you don't provide `MONGODB_URI`, the server will start but won't connect to a database.
 
-Files of interest:
+Push changes to GitHub (example):
 
-- `app.js` - Express app and routes wiring
-- `server.js` - starts the server and connects to MongoDB
-- `models/` - Mongoose models: `User`, `Post`
-- `controllers/` - `authController`, `postController`
-- `routes/` - route files: `auth.js`, `posts.js`
-- `middleware/auth.js` - protects routes using JWT
+```powershell
+git add .
+git commit -m "Add posts, comments, auth, and security middlewares"
+git push origin main
+```
+
+(You must have push access and be authenticated locally.)
 
 Happy hacking — add validation, tests, and more routes as you learn.
 

@@ -17,18 +17,19 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "bcrypt": "^5.1.0",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.5.0"
+  "bcrypt": "^5.1.0",
+  "cors": "^2.8.5",
+  "dotenv": "^16.3.1",
+  "express": "^4.18.2",
+  "express-mongo-sanitize": "^3.1.0",
+  "express-rate-limit": "^6.9.0",
+  "helmet": "^7.0.0",
+  "jsonwebtoken": "^9.0.0",
+  "mongoose": "^7.5.0",
+  "xss-clean": "^0.1.3"
   },
   "devDependencies": {
     "eslint": "^8.50.0",
     "nodemon": "^3.0.1"
-  },
-  "bugs": {
-    "url": "https://github.com/Ikechukwu-Okwuchukwu-Amaechina/blog-api/issues"
-  },
-  "homepage": "https://github.com/Ikechukwu-Okwuchukwu-Amaechina/blog-api#readme"
+  }
 }
