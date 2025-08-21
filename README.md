@@ -64,16 +64,14 @@ git push origin main
 
 ## CI / CD
 
-This repo includes a GitHub Actions workflow at `.github/workflows/ci-cd.yml` that runs tests on push and PR to `main`. On successful tests and when a `RAILWAY_API_KEY` secret is configured in the repository, it will deploy to Railway using the Railway CLI.
-
-To add the secret in GitHub: Settings -> Secrets -> Actions -> New repository secret, name it `RAILWAY_API_KEY` and paste your Railway API key.
+This repo includes a GitHub Actions workflow at `.github/workflows/test.yml` that runs tests on push and PR to `main`. 
 
 ## Running tests locally
 
 Install dependencies and run tests:
 
 ```powershell
-npm ci
+
 npm test
 ```
 

@@ -139,8 +139,9 @@ exports.deleteComment = async (req, res) => {
 
     if (!(req.user.role === 'admin' || comment.author.toString() === req.user.id)) return res.status(403).json({ message: 'Forbidden' });
 
-    comment.remove();
-    await post.save();
+  // Use pull() to remove by id — safer if the comment is a plain object or subdocument
+  post.comments.pull(commentId);
+  await post.save();
     return res.json({ message: 'Comment deleted' });
   } catch (err) {
     console.error(err);
